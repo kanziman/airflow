@@ -15,3 +15,10 @@ with DAG(
         task_id='task_get_sftp',
         python_callable=get_sftp
     )
+    
+    task_get_sftp2 = PythonOperator(
+        task_id='task_get_sftp2',
+        python_callable=get_sftp
+    )
+    
+    task_get_sftp >> task_get_sftp2
