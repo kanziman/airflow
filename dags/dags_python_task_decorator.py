@@ -19,3 +19,5 @@ with DAG(
         
     python_task_1 = print_context('task_decorator 실행 1')
     python_task_2 = print_context('task_decorator 실행 2')
+    
+    python_task_2 >> python_task_1
