@@ -1,8 +1,7 @@
 # from common.common_func import *
 # from common.common_func import get_day
-from common_func import get_day, get_credit_day, get_con
+from common.common_func import get_day, get_con
 import requests as rq
-import logging
 
 
 def try_con():

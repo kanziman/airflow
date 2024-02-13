@@ -1,7 +1,7 @@
 import numpy as np
 import requests as rq
 import pandas as pd
-from common_func import get_day, get_con
+from common.common_func import get_day, get_con
 
 def get_price_kofia(start, end):
     print('*** MARKET PRICE SUPPORT ***')

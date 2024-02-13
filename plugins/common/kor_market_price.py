@@ -3,7 +3,7 @@ import requests as rq
 import numpy as np
 import pandas as pd
 import random
-from common_func import get_day, get_credit_day, get_con
+from common.common_func import get_day, get_credit_day, get_con
 
 def price_main(day=None):
     print('*** MARKET PRICE ***')
