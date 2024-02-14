@@ -1,6 +1,7 @@
 from airflow import DAG
 import pendulum
 from airflow.operators.python import PythonOperator
+from common.common_func import get_con
 
 with DAG(
     dag_id='dags_python_with_postgres',
@@ -14,7 +15,7 @@ with DAG(
         import pymysql
         from contextlib import closing
 
-        with closing(pymysql.connect(host=ip, db=db, user=user, passwd=passwd, port=int(port))) as conn:
+        with closing(pymysql.connect(get_con())) as conn:
             with closing(conn.cursor()) as cursor:
                 dag_id = kwargs.get('ti').dag_id
                 task_id = kwargs.get('ti').task_id
@@ -29,7 +30,7 @@ with DAG(
     insrt_postgres = PythonOperator(
         task_id='insrt_postgres',
         python_callable=insrt_postgres,
-        op_args=['localhost', '3306', 'stock', 'root', 'test1234']
+        # op_args=['localhost', '3306', 'stock', 'root', 'test1234']
     )
         
     insrt_postgres
