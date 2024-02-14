@@ -9,11 +9,11 @@ with DAG(
         catchup=False
 ) as dag:
     def insrt_postgres(conn_id, **kwargs):
-        from airflow.providers.postgres.hooks.postgres import PostgresHook
+        from airflow.providers.mysql.hooks.mysql import MySqlHook
         from contextlib import closing
         
-        postgres_hook = PostgresHook(conn_id)
-        with closing(postgres_hook.get_conn()) as conn:
+        _hook = MySqlHook(conn_id)
+        with closing(_hook.get_conn()) as conn:
             with closing(conn.cursor()) as cursor:
                 # dag_id = kwargs.get('ti').dag_id
                 # task_id = kwargs.get('ti').task_id

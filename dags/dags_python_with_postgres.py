@@ -12,7 +12,7 @@ with DAG(
 
     
     def insrt_postgres(ip, port, db, user, passwd, **kwargs):
-        import pymysql
+
         from contextlib import closing
 
         with closing(get_con()) as conn:
