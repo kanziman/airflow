@@ -2,37 +2,48 @@ from airflow import DAG
 import pendulum
 from airflow.operators.python import PythonOperator
 from airflow.operators.python import BranchPythonOperator
-from common.kor_market_price import price_main
-from common.kor_market_price_support import price_support_main
-from common.kor_market_credit import credit_main
-from common.kor_market_value import value_main
-from airflow.utils.edgemodifier import Label
 
-# == dags_python_with_branch_decorator
+#dags_python_with_branch_decorator
 with DAG(
     dag_id='dags_branch_python_operator',
     start_date=pendulum.datetime(2023,4,1, tz='Asia/Seoul'), 
-    schedule='0 22 * * *',
+    schedule='0 1 * * *',
     catchup=False
 ) as dag:
-    market_price = PythonOperator(
-        task_id='market_price',
-        python_callable=price_main
-    )
-        
-    market_price_support = PythonOperator(
-        task_id='market_price_support',
-        python_callable=price_support_main
+    def select_random():
+        import random
+
+        item_lst = ['A','B','C']
+        selected_item = random.choice(item_lst)
+        if selected_item == 'A':
+            return 'task_a'
+        elif selected_item in ['B','C']:
+            return ['task_b','task_c']
+    
+    python_branch_task = BranchPythonOperator(
+        task_id='python_branch_task',
+        python_callable=select_random
     )
     
-    market_credit = PythonOperator(
-        task_id='market_credit',
-        python_callable=credit_main
+    def common_func(**kwargs):
+        print(kwargs['selected'])
+
+    task_a = PythonOperator(
+        task_id='task_a',
+        python_callable=common_func,
+        op_kwargs={'selected':'A'}
     )
-    
-    market_value = PythonOperator(
-        task_id='market_value',
-        python_callable=value_main
+
+    task_b = PythonOperator(
+        task_id='task_b',
+        python_callable=common_func,
+        op_kwargs={'selected':'B'}
     )
-    
-    market_price >> Label('kospi/kosdaq price scraped') >> [market_price_support, market_credit] >> Label('kospi/kosdaq value/credit scraped') >> market_value
+
+    task_c = PythonOperator(
+        task_id='task_c',
+        python_callable=common_func,
+        op_kwargs={'selected':'C'}
+    )
+
+    python_branch_task >> [task_a, task_b, task_c]
