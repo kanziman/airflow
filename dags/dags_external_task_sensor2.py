@@ -55,4 +55,4 @@ with DAG(
         poke_interval=10        #10초
     )
     
-    external_task_sensor_a >> market_scrap_sensor
+    external_task_sensor_a >> external_task_sensor_c
