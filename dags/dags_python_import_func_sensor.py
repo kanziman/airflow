@@ -6,7 +6,7 @@ from airflow.utils.state import State
 from airflow.decorators import task
 
 with DAG(
-    dag_id='dags_external_task_sensor',
+    dag_id='dags_market_external_task_sensor',
     start_date=pendulum.datetime(2023,4,1, tz='Asia/Seoul'),
     schedule='30 23 * * *',
     catchup=False
