@@ -15,7 +15,7 @@ with DAG(
         import pymysql
         from contextlib import closing
 
-        with closing(pymysql.connect(get_con())) as conn:
+        with closing(get_con()) as conn:
             with closing(conn.cursor()) as cursor:
                 dag_id = kwargs.get('ti').dag_id
                 task_id = kwargs.get('ti').task_id
