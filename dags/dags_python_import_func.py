@@ -46,5 +46,4 @@ with DAG(
         python_callable=value_main
     )
     
-        empty_2 >> Label('Start Branch') >> [empty_3,empty_4,empty_5] >> Label('End Branch') >> empty_6
-    market_price >> [market_price_support, market_credit] >> market_value
+    market_price >> Label('kospi/kosdaq price scraped') >> [market_price_support, market_credit] >> Label('kospi/kosdaq value/credit scraped') >> market_value
