@@ -23,7 +23,7 @@ with DAG(
                 msg = 'insrt 수행'
                 # sql = 'insert into py_opr_drct_insrt values (%s,%s,%s,%s);'
                 # cursor.execute(sql,(dag_id,task_id,run_id,msg))
-                sql = "INSERT INTO stock.kor_market_price (기준일, 시장구분, 시가, 고가, 저가, 종가, 수정주가, 거래량, 거래대금, 시가총액, 외국인시가총액, 신용잔고, 예탁금) VALUES ('2024-02-09', 'KOSPI', 2620.26, 2629.51, 2610.21, 2620.32, null, 430008992, 12493400, 2132380030, 710438980, 9672010, 50840200)";
+                sql = "INSERT INTO kor_market_price (기준일, 시장구분, 시가, 고가, 저가, 종가, 수정주가, 거래량, 거래대금, 시가총액, 외국인시가총액, 신용잔고, 예탁금) VALUES ('2024-02-09', 'KOSPI', 2620.26, 2629.51, 2610.21, 2620.32, null, 430008992, 12493400, 2132380030, 710438980, 9672010, 50840200)";
                 cursor.execute(sql)
                 conn.commit()
 
