@@ -5,6 +5,7 @@ from datetime import datetime, timedelta
 import pymysql
 import pathlib
 import configparser
+from sqlalchemy import create_engine
 
 
 def get_sftp():
@@ -59,6 +60,21 @@ def get_con():
         )
 
     return con
+
+
+def get_connection():
+    
+    # 설정파일 읽기
+    config_path = pathlib.Path(__file__).parent.absolute() / "config.ini"
+    config = configparser.ConfigParser()
+    config.read(config_path)
+    
+    # 설장파일 색션 확인
+    if 'dev' == config['env']['property']:
+        con = get_con()
+        engine = create_engine(config['env']['path'])
+        
+    return engine, con
 
 if __name__ == '__main__':
     print(get_con())

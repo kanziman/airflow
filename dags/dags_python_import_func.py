@@ -6,22 +6,23 @@ from common.common_func import get_sftp
 from common.kor_market_price import price_main
 from common.kor_market_price_support import price_support_main
 from common.kor_market_credit import credit_main
+from common.kor_market_value import value_main
 with DAG(
     dag_id="dags_python_import_func",
-    schedule="30 6 * * *",
+    schedule="30 23 * * *",
     start_date=pendulum.datetime(2023, 3, 1, tz="Asia/Seoul"),
     catchup=False
 ) as dag:
 
-    task_get_sftp = PythonOperator(
-        task_id='task_get_sftp',
-        python_callable=get_sftp
-    )
+    # task_get_sftp = PythonOperator(
+    #     task_id='task_get_sftp',
+    #     python_callable=get_sftp
+    # )
     
-    task_get_sftp2 = PythonOperator(
-        task_id='task_get_sftp2',
-        python_callable=get_sftp
-    )
+    # task_get_sftp2 = PythonOperator(
+    #     task_id='task_get_sftp2',
+    #     python_callable=get_sftp
+    # )
     
     market_price = PythonOperator(
         task_id='market_price',
@@ -38,4 +39,9 @@ with DAG(
         python_callable=credit_main
     )
     
-    market_price >> [market_price_support, market_credit]
+    market_value = PythonOperator(
+        task_id='market_value',
+        python_callable=value_main
+    )
+    
+    market_price >> [market_price_support, market_credit] >> market_value
