@@ -46,4 +46,9 @@ with DAG(
         python_callable=value_main
     )
     
-    market_price >> Label('kospi/kosdaq price scraped') >> [market_price_support, market_credit] >> Label('kospi/kosdaq value/credit scraped') >> market_value
+    task_c = PythonOperator(
+        task_id='task_c',
+        op_kwargs={'selected':'C'}
+    )
+    
+    market_price >> Label('kospi/kosdaq price scraped') >> [market_price_support, market_credit] >> Label('kospi/kosdaq value/credit scraped') >> market_value >> task_c
