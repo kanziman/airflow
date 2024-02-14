@@ -10,11 +10,11 @@ with DAG(
 ) as dag:
 
     
-    def insrt_postgres(ip, port, dbname, user, passwd, **kwargs):
+    def insrt_postgres(ip, port, db, user, passwd, **kwargs):
         import pymysql
         from contextlib import closing
 
-        with closing(pymysql.connect(host=ip, dbname=dbname, user=user, password=passwd, port=int(port))) as conn:
+        with closing(pymysql.connect(host=ip, db=db, user=user, passwd=passwd, port=int(port))) as conn:
             with closing(conn.cursor()) as cursor:
                 dag_id = kwargs.get('ti').dag_id
                 task_id = kwargs.get('ti').task_id
