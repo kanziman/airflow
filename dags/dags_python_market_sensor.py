@@ -4,6 +4,7 @@ import pendulum
 from datetime import timedelta
 from airflow.utils.state import State 
 from airflow.decorators import task
+from common.kor_market_refine import refine
 
 with DAG(
     dag_id='dags_python_market_sensor',
@@ -23,14 +24,9 @@ with DAG(
     @task(task_id="market_refine_task")
     def print_context(some_input):
         print(some_input)
+        refine()
         
     market_refine_task = print_context('market_refine_task 실행')
         
         
-    external_task_sensor_c = ExternalTaskSensor(
-        task_id='external_task_sensor_c',
-        external_dag_id='dags_python_import_func',
-        poke_interval=10        #10초
-    )
-        
-    external_task_sensor_c >> market_scrap_sensor >> market_refine_task
+    market_scrap_sensor >> market_refine_task
