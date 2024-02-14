@@ -48,6 +48,7 @@ with DAG(
     
     task_c = PythonOperator(
         task_id='task_c',
+        python_callable=get_sftp,
         op_kwargs={'selected':'C'}
     )
     
