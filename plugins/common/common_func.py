@@ -72,7 +72,7 @@ def get_connection():
     # 설장파일 색션 확인
     if 'dev' == config['env']['property']:
         con = get_con()
-        engine = create_engine(config['env']['path'])
+        engine = create_engine(config['db']['path'])
         
     return engine, con
 

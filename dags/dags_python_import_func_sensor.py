@@ -24,4 +24,9 @@ with DAG(
     
     @task(task_id="market_refine_task")
     def print_context(some_input):
-        print('refine start')
+        print(some_input)
+        
+    market_refine_task = print_context('market_refine_task 실행')
+        
+        
+    market_scrap_sensor >> market_refine_task
