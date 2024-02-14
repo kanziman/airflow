@@ -7,6 +7,8 @@ from common.kor_market_price import price_main
 from common.kor_market_price_support import price_support_main
 from common.kor_market_credit import credit_main
 from common.kor_market_value import value_main
+from airflow.utils.edgemodifier import Label
+
 with DAG(
     dag_id="dags_python_import_func",
     schedule="30 23 * * *",
@@ -44,4 +46,5 @@ with DAG(
         python_callable=value_main
     )
     
+        empty_2 >> Label('Start Branch') >> [empty_3,empty_4,empty_5] >> Label('End Branch') >> empty_6
     market_price >> [market_price_support, market_credit] >> market_value
