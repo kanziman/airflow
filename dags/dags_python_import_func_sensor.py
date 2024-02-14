@@ -8,7 +8,7 @@ from airflow.decorators import task
 with DAG(
     dag_id='dags_market_external_task_sensor',
     start_date=pendulum.datetime(2023,4,1, tz='Asia/Seoul'),
-    schedule='30 23 * * *',
+    schedule='40 23 * * *',
     catchup=False
 ) as dag:
 
@@ -18,6 +18,7 @@ with DAG(
         external_dag_id='dags_python_import_func',
         external_task_id='market_value',
         allowed_states=[State.SUCCESS],
+        execution_delta=timedelta(minutes=10),
         poke_interval=10        #10초
     )
     

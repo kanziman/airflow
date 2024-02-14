@@ -20,7 +20,7 @@ def get_target_days(isAll = False):
         if isAll:
             query += ' and 기준일 not in (select distinct 기준일 from kor_market_value)'
         else:
-            query += ' and 기준일 >=  (select date_sub(now() , interval 10 DAY ) from dual)'
+            query += ' and 기준일 >=  (select date_sub(now() , interval 3 DAY ) from dual)'
         target = pd.read_sql(query, con=engine)
         return target
     except Exception as e:
