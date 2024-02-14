@@ -29,7 +29,7 @@ with DAG(
     insrt_postgres = PythonOperator(
         task_id='insrt_postgres',
         python_callable=insrt_postgres,
-        op_args=['127.0.0.1', '3306', 'stock', 'root', 'test1234']
+        op_args=['localhost', '3306', 'stock', 'root', 'test1234']
     )
         
     insrt_postgres
