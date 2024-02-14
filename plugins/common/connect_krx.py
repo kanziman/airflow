@@ -1,5 +1,3 @@
-# from common.common_func import *
-# from common.common_func import get_day
 from common.common_func import get_day, get_con
 import requests as rq
 

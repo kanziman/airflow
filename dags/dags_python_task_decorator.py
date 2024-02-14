@@ -20,4 +20,10 @@ with DAG(
     python_task_1 = print_context('task_decorator 실행 1')
     python_task_2 = print_context('task_decorator 실행 2')
     
+    
+    @task(task_id="python_task_3")
+    def print_context(some_input):
+        print(some_input)
+        
+        
     python_task_2 >> python_task_1
