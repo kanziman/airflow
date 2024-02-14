@@ -5,7 +5,7 @@ from datetime import timedelta
 from airflow.utils.state import State 
 
 with DAG(
-    dag_id='dags_external_task_sensor',
+    dag_id='dags_external_task_sensor2',
     start_date=pendulum.datetime(2023,4,1, tz='Asia/Seoul'),
     schedule='0 23 * * *',
     catchup=False
