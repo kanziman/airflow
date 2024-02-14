@@ -31,12 +31,12 @@ with DAG(
         
         
     external_task_sensor_c = ExternalTaskSensor(
-    task_id='external_task_sensor_c',
-    external_dag_id='dags_python_import_func',
-    external_task_id='task_c',
-    allowed_states=[State.SUCCESS],
-    execution_delta=timedelta(hours=1),
-    poke_interval=10        #10초
-)
+        task_id='external_task_sensor_c',
+        external_dag_id='dags_python_import_func',
+        external_task_id='task_c',
+        allowed_states=[State.SUCCESS],
+        execution_delta=timedelta(hours=1),
+        poke_interval=10        #10초
+    )
         
     external_task_sensor_c >> market_scrap_sensor >> market_refine_task
