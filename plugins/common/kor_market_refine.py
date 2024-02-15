@@ -66,7 +66,7 @@ def update_adr(isAll=False):
         con.close()
 
 
-def market():
+def market(isAll=False):
     print("MARKET REFINE")
     engine, con = get_connection()
     try:
@@ -77,9 +77,15 @@ def market():
             from kor_market_price a
             join (select * from kor_market_value where 지수명 in ('코스피','코스닥')) b on a.기준일 = b.기준일 and a.시장구분 = b.시장구분;
         """
+        if isAll:
+            select_query = select_query.format(' where a.기준일 >= "2010-01-01"')
+        else:
+            select_query = select_query.format(' where a.기준일 >=  (select date_sub(now() , interval 1 MONTH ) from dual)')
+        print(select_query)
+        
         target = pd.read_sql(select_query, con=engine)
         target = target.replace([np.inf, -np.inf, np.nan], None)
-        print(target)
+        
         # INSERT
         insert_query = f"""
             insert into market (baseDate,mktType,open,high,low
@@ -107,7 +113,7 @@ def refine():
     print('update adr')
     update_adr()
     print('select insert market')
-    # market()
+    market()
 
 
 if __name__ == '__main__':
