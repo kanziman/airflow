@@ -16,8 +16,7 @@ def update_adr(isAll=False):
             from (select *
                     from kor_price price
                     join (select 종목코드 as code, 시장구분
-                            from kor_ticker
-                            where 기준일 = (select max(기준일) from kor_ticker)
+                            from kor_ticker_today
                           ) ticker
                     on    price.종목코드 = ticker.code
                     {0}
