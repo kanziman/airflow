@@ -11,6 +11,6 @@ with DAG(
 ) as dag:
     write_report_by_chatgpt = ReportByChatgptOperator(
         task_id='write_report_by_chatgpt',
-        post_cnt_per_market=3,
+        post_cnt_per_market=1,
         model='gpt-3.5-turbo'
     )

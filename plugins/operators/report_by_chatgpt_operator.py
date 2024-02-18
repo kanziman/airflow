@@ -45,16 +45,16 @@ class ReportByChatgptOperator(BaseOperator):
                 print(f'{ticker_name} pass')
                 continue
             
-            chatgpt_resp = chatgpt_resp.replace('\n','<br/>')
+            # chatgpt_resp = chatgpt_resp.replace('\n','<br/>')
             
             if idx >= self.post_cnt_per_market:
                 market = 'KOSDAQ'
                 
-            title = f'제목:{yyyy}/{mm}/{dd} {hh}시 {market} 급등 {fluctuation_rate}% {ticker_name} 주목!'
+            title = f'{yyyy}/{mm}/{dd} {hh}시 {market} 급등 {fluctuation_rate}% {ticker_name} 주목!'
             print(f'title:{title}')
             print(f'content:{chatgpt_resp}')
             
-            message = f'title:{title}\n\n {chatgpt_resp}'
+            message = f'{title}\n\n {chatgpt_resp}'
             send_message(telegram_token, message, chat_id)
             # set_tistory_post(access_token=tistory_access_token,
             #                  blog_name='hjkim-sun',
