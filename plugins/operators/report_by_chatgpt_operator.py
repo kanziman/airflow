@@ -2,7 +2,7 @@ from airflow.models import Variable
 from airflow.models.baseoperator import BaseOperator
 from config.chatgpt import get_chatgpt_response
 from config.pykrx_api import get_prompt_for_chatgpt
-from config.tistory import set_tistory_post
+# from config.tistory import set_tistory_post
 import pendulum
 from random import randrange
 class ReportByChatgptOperator(BaseOperator):
