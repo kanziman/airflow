@@ -2,7 +2,7 @@ from airflow.models import Variable
 from airflow.models.baseoperator import BaseOperator
 from config.chatgpt import get_chatgpt_response
 from config.pykrx_api import get_prompt_for_chatgpt
-# from config.tistory import set_tistory_post
+from config.telegram import send_message
 import pendulum
 from random import randrange
 class ReportByChatgptOperator(BaseOperator):
@@ -14,6 +14,7 @@ class ReportByChatgptOperator(BaseOperator):
 
     def execute(self, context):
         chatgpt_api_key = Variable.get('chatgpt_api_key')
+        telegram_token = Variable.get('telegram_token')
         # tistory_access_token = Variable.get('tistory_access_token')
 
         now =  pendulum.now('Asia/Seoul')
@@ -51,7 +52,10 @@ class ReportByChatgptOperator(BaseOperator):
                 
             print(f'title:{yyyy}/{mm}/{dd} {hh}시 {market} 급등 {fluctuation_rate}% {ticker_name} 주목!')
             print(f'content:{chatgpt_resp}')
-
+            message = f'제목:{yyyy}/{mm}/{dd} {hh}시 {market} 급등 {fluctuation_rate}% {ticker_name} 주목!\n\n
+            {chatgpt_resp}
+            '
+            send_message(telegram_token, message)
             # set_tistory_post(access_token=tistory_access_token,
             #                  blog_name='hjkim-sun',
             #                  title=f'{yyyy}/{mm}/{dd} {hh}시 {market} 급등 {fluctuation_rate}% {ticker_name} 주목!',
