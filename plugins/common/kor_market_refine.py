@@ -26,7 +26,7 @@ def update_adr(isAll=False):
         if isAll:
             query = query.format(' where price.기준일 >= "2010-01-01"')
         else:
-            query = query.format(' where price.기준일 >=  (select date_sub(now() , interval 1 MONTH ) from dual)')
+            query = query.format(' where price.기준일 >=  (select date_sub(now() , interval 2 MONTH ) from dual)')
         print(query)
         adrs = pd.read_sql(query, con=engine)
     except Exception as e:
@@ -74,6 +74,7 @@ def market(isAll=False):
                    거래량, 거래대금, 시가총액, 외국인시가총액,
                    b.PER, b.PBR, b.DY, 신용잔고, 예탁금, b.adr
             from kor_market_price a
+            
             join (select * from kor_market_value where 지수명 in ('코스피','코스닥')) b on a.기준일 = b.기준일 and a.시장구분 = b.시장구분;
         """
         if isAll:
