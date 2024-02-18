@@ -15,7 +15,7 @@ class ReportByChatgptOperator(BaseOperator):
     def execute(self, context):
         chatgpt_api_key = Variable.get('chatgpt_api_key')
         telegram_token = Variable.get('telegram_token')
-        # tistory_access_token = Variable.get('tistory_access_token')
+        chat_id = "-1002038105003"
 
         now =  pendulum.now('Asia/Seoul')
         now_yyyymmmdd = now.strftime('%Y%m%d')
@@ -55,7 +55,7 @@ class ReportByChatgptOperator(BaseOperator):
             message = f'제목:{yyyy}/{mm}/{dd} {hh}시 {market} 급등 {fluctuation_rate}% {ticker_name} 주목!\n\n
             {chatgpt_resp}
             '
-            send_message(telegram_token, message)
+            send_message(telegram_token, message, chat_id)
             # set_tistory_post(access_token=tistory_access_token,
             #                  blog_name='hjkim-sun',
             #                  title=f'{yyyy}/{mm}/{dd} {hh}시 {market} 급등 {fluctuation_rate}% {ticker_name} 주목!',
