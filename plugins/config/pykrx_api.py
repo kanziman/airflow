@@ -30,18 +30,21 @@ def get_prompt_for_chatgpt(yyyymmdd, market, cnt):
         오늘 증권시장에서 {round(fluc_rate, 2)}%로 상승한 {ticker_name}에 대한 정보야.
         {ticker_name}에 대한 회사 소개를 리포트로 만들어줘.
         그리고 아래 정보들도 포함해서 리포트로 만들어줘.
-        등락률: {round(fluc_rate, 2)}
-        시가: {open_value}
-        고가: {high_value}
-        저가: {low_value}
-        종가: {end_value}
-        거래량: {volume}
-        BPS: {bps}
-        PER: {per}
-        PBR: {pbr}
-        EPS: {eps}
-        DIV: {div}
-        DPS: {dps}
+        [주가 정보]
+        - 등락률: {round(fluc_rate, 2)}
+        - 시가: {open_value}
+        - 고가: {high_value}
+        - 저가: {low_value}
+        - 종가: {end_value}
+        - 거래량: {volume}
+
+        [재무 정보]
+        - BPS (주당순자산가치): {bps}
+        - PER (주가수익비율): {per}
+        - PBR (주가순자산비율): {pbr}
+        - EPS (주당순이익): {eps}
+        - DIV (배당수익률): {div}
+        - DPS (주당배당금): {dps}
         '''
         
         ticker_name_lst.append(ticker_name)

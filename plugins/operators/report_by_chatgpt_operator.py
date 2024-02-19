@@ -23,6 +23,7 @@ class ReportByChatgptOperator(BaseOperator):
         mm = now.month
         dd = now.day
         hh = now.hour
+        mi = now.minute
         kospi_ticker_name_lst, kospi_fluctuation_rate_lst, prompt_of_kospi_top_n_lst = get_prompt_for_chatgpt(now_yyyymmmdd, market='KOSPI', cnt=self.post_cnt_per_market)
         kosdaq_ticker_name_lst, kosdaq_fluctuation_rate_lst, prompt_of_kosdaq_top_n_lst = get_prompt_for_chatgpt(now_yyyymmmdd, market='KOSDAQ', cnt=self.post_cnt_per_market)
         
@@ -50,7 +51,7 @@ class ReportByChatgptOperator(BaseOperator):
             if idx >= self.post_cnt_per_market:
                 market = 'KOSDAQ'
                 
-            title = f'{yyyy}/{mm}/{dd} {hh}시 {market} 급등 {fluctuation_rate}% {ticker_name} 주목!'
+            title = f'{yyyy}/{mm}/{dd} {hh}시 {mi}분 {market} 급등 {fluctuation_rate}% {ticker_name} 주목!'
             print(f'title:{title}')
             print(f'content:{chatgpt_resp}')
             
